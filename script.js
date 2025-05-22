@@ -504,6 +504,7 @@ if (orderForm) {
     emailjs.send("service_wr3jpbd", "template_e0kvz6e", formData)
       .then(function(response) {
         console.log("Email успешно отправлен!", response.status, response.text);
+        document.getElementById('loading-spinner').style.display = 'none'; // Скрываем спиннер
         orderFormSuccess.style.display = 'block'; // Показываем сообщение об успехе
         setTimeout(() => {
           orderModal.style.display = 'none'; // Закрываем модальное окно
