@@ -64,25 +64,25 @@ function changeWindowImage(tabId) {
 
   switch (tabId) {
     case 'single':
-      windowImage.src = 'https://calc.vipdomstr.ru/wp-content/uploads/2025/05/3.webp ';
+      windowImage.src = 'https://calc.vipdomstr.ru/wp-content/uploads/2025/05/3.webp';
       windowImage.classList.add('single-window'); // Добавляем класс для одностворчатого окна
       widthInput.value = 800;
       heightInput.value = 1500;
       break;
     case 'double':
-      windowImage.src = 'https://calc.vipdomstr.ru/wp-content/uploads/2025/05/8.webp ';
+      windowImage.src = 'https://calc.vipdomstr.ru/wp-content/uploads/2025/05/8.webp';
       windowImage.classList.add('double-window'); // Добавляем класс для двухстворчатого окна
       widthInput.value = 1500;
       heightInput.value = 1500;
       break;
     case 'triple':
-      windowImage.src = 'https://calc.vipdomstr.ru/wp-content/uploads/2025/05/17.webp ';
+      windowImage.src = 'https://calc.vipdomstr.ru/wp-content/uploads/2025/05/17.webp';
       windowImage.classList.add('triple-window'); // Добавляем класс для трехстворчатого окна
       widthInput.value = 1800;
       heightInput.value = 1500;
       break;
     case 'balcony':
-      windowImage.src = 'https://calc.vipdomstr.ru/wp-content/uploads/2025/05/22.webp ';
+      windowImage.src = 'https://calc.vipdomstr.ru/wp-content/uploads/2025/05/22.webp';
       windowImage.classList.add('balcony-window'); // Добавляем класс для балконной двери
       widthInput.value = 700;
       heightInput.value = 2000;
@@ -104,19 +104,37 @@ tabButtons.forEach(button => {
 
 // --- Функция обновления размеров окна ---
 function updateWindowDimensions() {
-  const widthSlider = document.getElementById('width-slider');
-  const heightSlider = document.getElementById('height-slider');
-  const widthInput = document.getElementById('width');
-  const heightInput = document.getElementById('height');
-  const dimensionsText = document.getElementById('dimensions-text');
-  if (!widthSlider || !heightSlider || !widthInput || !heightInput || !dimensionsText) {
-      console.error("Не найдены необходимые элементы для обновления размеров окна!");
-      return;
-  }
+    const widthSlider = document.getElementById('width-slider');
+    const heightSlider = document.getElementById('height-slider');
+    const widthInput = document.getElementById('width');
+    const heightInput = document.getElementById('height');
+    const dimensionsText = document.getElementById('dimensions-text');
+    const widthValueSpan = document.getElementById('width-value'); // Получаем элемент для отображения ширины рядом с ползунком
+    const heightValueSpan = document.getElementById('height-value');
+
+    if (!widthSlider) {
+        console.error("Элемент с ID 'width-slider' не найден");
+    }
+    if (!heightSlider) {
+        console.error("Элемент с ID 'height-slider' не найден");
+    }
+    if (!widthInput) {
+        console.error("Элемент с ID 'width' не найден");
+    }
+    if (!heightInput) {
+        console.error("Элемент с ID 'height' не найден");
+    }
+    if (!dimensionsText) {
+        console.error("Элемент с ID 'dimensions-text' не найден");
+    }
 
   // Обновляем значения в полях ввода
   widthInput.value = widthSlider.value;
   heightInput.value = heightSlider.value;
+
+  // Обновляем текст рядом с ползунками
+  widthValueSpan.textContent = `${widthSlider.value} мм`; // Добавлено
+  heightValueSpan.textContent = `${heightSlider.value} мм`; // Добавлено
 
   // Обновляем текст с размерами
   dimensionsText.textContent = `Ширина: ${widthSlider.value / 10} см, Высота: ${heightSlider.value / 10} см`;
@@ -458,18 +476,10 @@ if (orderForm) {
           orderForm.reset(); // Очищаем форму
         }, 1500);
       })
-
-    // Скрываем spinner
-    document.getElementById('loading-spinner').style.display = 'none';
-
       .catch(function(error) {
         console.error("Ошибка при отправке email:", error);
         alert("Произошла ошибка при отправке заявки. Пожалуйста, попробуйте снова.");
       });
-
-      // Скрываем spinner
-      document.getElementById('loading-spinner').style.display = 'none';
-    });
       
     return false; // Предотвращаем перезагрузку страницы
   };
