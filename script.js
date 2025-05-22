@@ -155,112 +155,146 @@ function updatePreview(width, height) {
 document.getElementById('width-slider')?.addEventListener('input', updateWindowDimensions);
 document.getElementById('height-slider')?.addEventListener('input', updateWindowDimensions);
 
-// Функция расчёта стоимости
 function calculateCost() {
-  try {
-    const widthInput = document.getElementById('width');
-    const heightInput = document.getElementById('height');
-    const profileModelSelect = document.getElementById('profile-model');
-    const glazingTypeSelect = document.getElementById('glazing-type');
-    const openingTypeSelect = document.getElementById('opening-type');
-    if (!widthInput || !heightInput || !profileModelSelect || !glazingTypeSelect || !openingTypeSelect) {
-      console.error("Не найдены необходимые элементы для расчета стоимости!");
-      return;
+    try {
+        const widthInput = document.getElementById('width');
+        const heightInput = document.getElementById('height');
+        const profileModelSelect = document.getElementById('profile-model');
+        const glazingTypeSelect = document.getElementById('glazing-type');
+        const openingTypeSelect = document.getElementById('opening-type');
+        const installationCheckbox = document.getElementById('installation-checkbox');
+        const slopesCheckbox = document.getElementById('slopes-checkbox');
+
+        if (!widthInput || !heightInput || !profileModelSelect || !glazingTypeSelect || !openingTypeSelect || !installationCheckbox) {
+            console.error("Не найдены необходимые элементы для расчета стоимости!");
+            return;
+        }
+
+        const width = parseFloat(widthInput.value);
+        const height = parseFloat(heightInput.value);
+        const profileModel = profileModelSelect.value;
+        const glazingType = glazingTypeSelect.value;
+        const openingType = openingTypeSelect.value;
+        const isInstallationSelected = installationCheckbox.checked;
+        const isSlopesSelected = slopesCheckbox.checked;
+        
+
+        // Проверка на отсутствие размеров
+        if (!width || !height) {
+            alert("Введите ширину и высоту окна!");
+            return;
+        }
+
+        // Вычисляем площадь окна
+        const windowArea = width * height / 1000000;
+
+        // Вычисляем периметр окна
+        const perimeter = 2 * (width + height) / 1000;
+
+        // Стоимость профиля
+        const profilePrice = prices.profiles[profileModel] * perimeter;
+
+        // Стоимость стеклопакета
+        const glazingPrice = prices.glazings[glazingType] * windowArea;
+
+        // Стоимость откосов
+        let otkosPrice = 0;
+            if (isSlopesSelected) {
+                otkosPrice = prices.otkos * ((2 * height + width) / 1000); // Только если откосы включены
     }
 
-    const width = parseFloat(widthInput.value);
-    const height = parseFloat(heightInput.value);
-    const profileModel = profileModelSelect.value;
-    const glazingType = glazingTypeSelect.value;
-    const openingType = openingTypeSelect.value;
+        // Стоимость подоконника
+        const podokonnikPrice = prices.podokonnik * (width / 1000);
 
-    // Проверка на отсутствие размеров
-    if (!width || !height) {
-      alert("Введите ширину и высоту окна!");
-      return;
+        // Стоимость отлива
+        const otlivPrice = prices.otliv * (width / 1000);
+
+        // Стоимость типа открывания
+        const openingPrice = prices.opening[openingType];
+
+        // Стоимость москитной сетки (если выбран поворотный или поворотно-откидной)
+        let mosquitoNetPrice = 0;
+        if (openingType === "turn" || openingType === "turn-tilt") {
+            mosquitoNetPrice = prices.mosquitoNet * windowArea;
+        }
+
+        // Стоимость монтажа
+        let installationPrice = 0;
+        if (isInstallationSelected) {
+            installationPrice = 1000 * windowArea; // 1000 рублей за кв.м.
+        }
+
+        // Общая стоимость
+        const totalCost =
+            profilePrice +
+            glazingPrice +
+            (isSlopesSelected ? otkosPrice : 0) + // Условие для откосов
+            podokonnikPrice +
+            otlivPrice +
+            openingPrice +
+            mosquitoNetPrice +
+            installationPrice;
+
+        // Отображаем результаты
+        updatePreview(width, height);
+        displayCostDetails(
+            profilePrice,
+            glazingPrice,
+            otkosPrice,
+            podokonnikPrice,
+            otlivPrice,
+            openingPrice,
+            mosquitoNetPrice,
+            installationPrice // Добавляем стоимость монтажа
+        );
+
+        // Проверяем, равна ли общая стоимость 0
+        if (totalCost === 0) {
+            document.getElementById('total-cost').textContent = '0 руб.';
+            document.getElementById('cost-details').innerHTML = '<p style="color: red;">Для отображения стоимости укажите размеры окна</p>';
+        } else {
+            document.getElementById('total-cost').textContent = `${totalCost.toFixed(2)} руб.`;
+        }
+    } catch (error) {
+        console.error("Ошибка при расчете стоимости:", error);
+        alert("Произошла ошибка при расчете стоимости.");
     }
-
-    // Вычисляем площадь окна
-    const windowArea = width * height / 1000000;
-    // Вычисляем периметр окна
-    const perimeter = 2 * (width + height) / 1000;
-
-    // Стоимость профиля
-    const profilePrice = prices.profiles[profileModel] * perimeter;
-    // Стоимость стеклопакета
-    const glazingPrice = prices.glazings[glazingType] * windowArea;
-    // Стоимость откосов
-    const otkosPrice = prices.otkos * ((2 * height + width) / 1000);
-    // Стоимость подоконника
-    const podokonnikPrice = prices.podokonnik * (width / 1000);
-    // Стоимость отлива
-    const otlivPrice = prices.otliv * (width / 1000);
-    // Стоимость типа открывания
-    const openingPrice = prices.opening[openingType];
-    // Стоимость москитной сетки (если выбран поворотный или поворотно-откидной)
-    let mosquitoNetPrice = 0;
-    if (openingType === "turn" || openingType === "turn-tilt") {
-      mosquitoNetPrice = prices.mosquitoNet * windowArea;
-    }
-
-    // Общая стоимость
-    const totalCost =
-      profilePrice +
-      glazingPrice +
-      otkosPrice +
-      podokonnikPrice +
-      otlivPrice +
-      openingPrice +
-      mosquitoNetPrice;
-
-    // Отображаем результаты
-    updatePreview(width, height);
-    displayCostDetails(
-      profilePrice,
-      glazingPrice,
-      otkosPrice,
-      podokonnikPrice,
-      otlivPrice,
-      openingPrice,
-      mosquitoNetPrice
-    );
-
-    // Проверяем, равна ли общая стоимость 0
-    if (totalCost === 0) {
-      document.getElementById('total-cost').textContent = '0 руб.';
-      document.getElementById('cost-details').innerHTML = '<p style="color: red;">Для отображения стоимости укажите размеры окна</p>';
-    } else {
-      document.getElementById('total-cost').textContent = `${totalCost.toFixed(2)} руб.`;
-    }
-  } catch (error) {
-    console.error("Ошибка при расчете стоимости:", error);
-    alert("Произошла ошибка при расчете стоимости.");
-  }
 }
 
 // Функция отображения деталей стоимости
-function displayCostDetails(profilePrice, glazingPrice, otkosPrice, podokonnikPrice, otlivPrice, openingPrice, mosquitoNetPrice) {
-  const costDetails = document.getElementById('cost-details');
-  const costPlaceholder = document.getElementById('cost-placeholder');
+function displayCostDetails(profilePrice, glazingPrice, otkosPrice, podokonnikPrice, otlivPrice, openingPrice, mosquitoNetPrice, installationPrice, isSlopesSelected) {
+    const costDetails = document.getElementById('cost-details');
+    const costPlaceholder = document.getElementById('cost-placeholder');
+    if (!costDetails || !costPlaceholder) {
+        console.error("Не найдены необходимые элементы для отображения деталей стоимости!");
+        return;
+    }
 
-  if (!costDetails || !costPlaceholder) {
-    console.error("Не найдены необходимые элементы для отображения деталей стоимости!");
-    return;
-  }
+    // Скрываем надпись по умолчанию
+    costPlaceholder.style.display = 'none';
 
-  // Скрываем надпись по умолчанию
-  costPlaceholder.style.display = 'none';
+    // Заполняем блок с деталями стоимости
+    let detailsHtml = `
+        <li>Профиль: ${profilePrice.toFixed(2)} руб.</li>
+        <li>Стеклопакет: ${glazingPrice.toFixed(2)} руб.</li>
+        <li>Подоконник: ${podokonnikPrice.toFixed(2)} руб.</li>
+        <li>Отлив: ${otlivPrice.toFixed(2)} руб.</li>
+        <li>Тип открывания: ${openingPrice.toFixed(2)} руб.</li>
+        <li>Москитная сетка: ${mosquitoNetPrice.toFixed(2)} руб.</li>
+    `;
 
-  // Заполняем блок с деталями стоимости
-  costDetails.innerHTML = `
-    <li>Профиль: ${profilePrice.toFixed(2)} руб.</li>
-    <li>Стеклопакет: ${glazingPrice.toFixed(2)} руб.</li>
-    <li>Откосы: ${otkosPrice.toFixed(2)} руб.</li>
-    <li>Подоконник: ${podokonnikPrice.toFixed(2)} руб.</li>
-    <li>Отлив: ${otlivPrice.toFixed(2)} руб.</li>
-    <li>Тип открывания: ${openingPrice.toFixed(2)} руб.</li>
-    <li>Москитная сетка: ${mosquitoNetPrice.toFixed(2)} руб.</li>
-  `;
+    // Добавляем строку с монтажом, если она выбрана
+    if (installationPrice > 0) {
+        detailsHtml += `<li>Монтаж: ${installationPrice.toFixed(2)} руб.</li>`;
+    }
+    
+    // Добавляем откосы, если галочка стоит
+    const slopesCheckbox = document.getElementById('slopes-checkbox'); // Получаем чекбокс
+    if (slopesCheckbox.checked && otkosPrice > 0) { // Проверяем состояние чекбокса и стоимость
+        detailsHtml += `<li>Откосы: ${otkosPrice.toFixed(2)} руб.</li>`;
+    }
+
+    costDetails.innerHTML = detailsHtml;
 }
 
 // Функция загрузки сохранённых расчётов

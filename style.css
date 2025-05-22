@@ -103,7 +103,7 @@ input, select, button {
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 15px;
 }
 
 .left-section button,
@@ -286,7 +286,7 @@ input, select, button {
 /* --- Кнопка "Скачать расчет" --- */
 .download-button {
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: 15px;
     background-color: #D13D73;
     color: white;
     border: none;
@@ -325,7 +325,7 @@ input, select, button {
     margin-top: 20px;
     margin-left: auto;
     padding: 15px 20px;
-    font-size: 16px;
+    font-size: 15px;
     background-color: #D13D73;
     color: white;
     border: none;
@@ -600,7 +600,7 @@ input, select, button {
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 15px;
     box-sizing: border-box; /* Очень важно */
     -moz-box-sizing: border-box; /* Для старых браузеров */
 }
@@ -786,4 +786,30 @@ input, select, button {
     position: relative; /* Для точного позиционирования */
     top: -20px; /* Поднимаем кнопку на 20 пикселей */
     right: 0; /* Оставляем её справа */
+}
+
+/* Стили для контейнера чекбоксов */
+.checkbox-container {
+    display: flex;
+    align-items: center; /* Выравнивание по вертикали */
+    justify-content: space-between; /* Раздвигаем текст и чекбокс по краям */
+    width: 100%;
+    margin-bottom: 5px;
+	  margin-left: 5px;
+    padding: 5px 0;
+}
+
+/* Стили для текста чекбокса */
+.checkbox-label {
+    font-size: 15px;
+    color: #333;
+    flex: 1; /* Занимает всё доступное пространство */
+    white-space: nowrap; /* Не переносит текст */
+}
+
+/* Стили для чекбокса */
+.checkbox-container input[type="checkbox"] {
+    margin-left: 170px; /* Отступ между текстом и чекбоксом */
+    min-width: 20px;
+    margin-bottom: 5px;
 }
