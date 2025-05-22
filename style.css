@@ -222,27 +222,50 @@ input, select, button {
 /* === Сохранённые расчёты === */
 /* ================================ */
 
-.saved-calculations-container {
+.saved-calculations-wrapper {
     margin-top: 20px;
+    position: relative;
+}
+
+.saved-calculations-wrapper h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.saved-calculations-container {
     padding: 10px;
     background-color: #f9f9f9;
     border: 1px solid #ddd;
+    min-height: 50px; /* Минимальная высота для красоты */
 }
 
 .saved-calculation {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin-bottom: 10px;
+    background-color: #fff;
+    padding: 8px 12px;
+    border-radius: 5px;
     font-size: 14px;
+    border: 1px solid #eee;
 }
 
 .saved-calculation span {
     margin-right: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
 }
 
 .saved-calculation button {
     padding: 5px 10px;
     margin-left: 10px;
+    font-size: 14px;
 }
 
 .saved-calculation button:hover {
@@ -251,6 +274,32 @@ input, select, button {
 
 #saved-calculations p {
     margin: 0;
+}
+
+@media (max-width: 768px) {
+    .download-button {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* --- Кнопка "Скачать расчет" --- */
+.download-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #D13D73;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    width: auto;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.download-button:hover {
+    background-color: #b82e5e;
 }
 
 /* ============================ */
@@ -652,4 +701,89 @@ input, select, button {
     .saved-calculation {
         text-align: left; /* Выравнивание текста по левому краю */
     }
+}
+
+.saved-calculations-wrapper {
+    display: flex;
+    flex-direction: column; /* Вертикальное расположение */
+    align-items: stretch; /* Занимают всю ширину */
+    margin-top: 20px;
+}
+
+/* Для мобильных устройств */
+@media (max-width: 768px) {
+    .saved-calculations-wrapper {
+        align-items: center; /* Выравнивание по центру */
+    }
+}
+
+.download-button {
+    padding: 5px 10px; /* Внутренние отступы */
+    font-size: 15px; /* Размер шрифта */
+    background-color: #D13D73; /* Цвет фона */
+    color: white; /* Цвет текста */
+    border: none; /* Убираем границы */
+    border-radius: 5px; /* Сглаженные углы */
+    cursor: pointer; /* Указатель курсора при наведении */
+    transition: background-color 0.2s ease; /* Анимация при наведении */
+
+    &:hover {
+        background-color: #b82e5e; /* Цвет при наведении */
+    }
+
+    /* Для мобильных устройств */
+    @media (max-width: 768px) {
+        width: 100%; /* Занимает всю ширину экрана */
+    }
+}
+
+.saved-calculations-wrapper {
+    display: flex;
+    flex-direction: column; /* Вертикальное расположение */
+    align-items: stretch; /* Занимает всю ширину */
+    justify-content: space-between; /* Размещаем элементы по краям */
+    margin-top: 20px;
+}
+
+/* Стили для контейнера с текстом и кнопкой */
+.disclaimer-and-download {
+    display: flex;
+    align-items: center; /* Выравнивание по центру по вертикали */
+    justify-content: space-between; /* Размещение элементов по краям */
+    margin-top: 10px; /* Отступ сверху */
+}
+
+/* Стили для текста с юридической припиской */
+.disclaimer-text {
+    font-size: 12px; /* Меньший размер шрифта */
+    color: #666; /* Серый цвет текста */
+    margin-right: 10px; /* Отступ справа */
+}
+
+/* Стили для кнопки "Скачать расчет" */
+.download-button {
+    padding: 5px 10px;
+    font-size: 15px;
+    background-color: #D13D73;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+        background-color: #b82e5e;
+    }
+
+    /* Для мобильных устройств */
+    @media (max-width: 768px) {
+        width: 100%; /* Занимает всю ширину экрана */
+    }
+}
+
+/* Стили для кнопки "Скачать расчет" */
+#download-png-btn {
+    position: relative; /* Для точного позиционирования */
+    top: -20px; /* Поднимаем кнопку на 20 пикселей */
+    right: 0; /* Оставляем её справа */
 }

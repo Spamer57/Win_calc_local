@@ -97,10 +97,19 @@
                  <button onclick="saveCalculation()" id="save-calculation-btn">Сохранить расчет</button>
                 </div>
         </div>
-        <!-- Блок сохранённых расчётов теперь ниже кнопок -->
-        <div id="saved-calculations" class="saved-calculations-container">
-            <!-- Здесь будут отображаться сохраненные расчеты -->
-        </div><button id="download-png-btn" class="download-button">Скачать расчет</button>
+        <!-- Блок сохранённых расчётов -->
+        <div class="saved-calculations-wrapper">
+            <h3>Сохраненные расчеты</h3>
+            <div id="saved-calculations" class="saved-calculations-container">
+        <!-- Здесь будут отображаться сохраненные расчеты -->
+            </div>
+            <div class="disclaimer-and-download">
+                <p class="disclaimer-text">
+        *Стоимость является ориентировочной и не является публичной офертой. 
+        Окончательная цена формируется после индивидуального расчета и согласования всех параметров с менеджером
+                </p>
+               <button id="download-png-btn" class="download-button">Скачать расчет</button>
+            </div>
     </div>
     <!-- Модальное окно заявки -->
     <div id="order-modal" class="modal" style="display:none;">
