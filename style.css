@@ -461,3 +461,195 @@ input, select, button {
     font-weight: bold;
     color: #000; /* Цвет можно изменить по вкусу */
 }
+
+/* Адаптивность для экранов до 768px */
+@media (max-width: 768px) {
+  /* Уменьшаем общую ширину контейнера */
+  .calculator-container {
+    padding: 10px; /* Уменьшаем отступы */
+  }
+
+  /* Центрируем всё содержимое */
+  .window-details {
+    display: flex;
+    flex-direction: column; /* Столбец для мобильных устройств */
+    align-items: center; /* Выравнивание по центру */
+  }
+
+  /* Изображение окна */
+  .window-image img {
+    max-width: 100%; /* Изображение должно занимать всю ширину экрана */
+    height: auto; /* Сохраняем пропорции */
+  }
+
+  /* Ползунки и текст рядом с ними */
+  .slider-container {
+    text-align: center; /* Выравнивание по центру */
+  }
+
+  /* Поля ввода и слайдеры */
+  input[type="number"],
+  select,
+  button {
+    width: 90%; /* Уменьшаем ширину полей ввода */
+    margin: 5px 0; /* Меньшие отступы между элементами */
+  }
+
+  /* Кнопки */
+  button {
+    width: 100%; /* Кнопки занимают всю ширину */
+    margin: 10px 0; /* Отступы между кнопками */
+  }
+
+  /* Блок с деталями стоимости */
+  #cost-details-container {
+    margin-top: 10px; /* Добавляем отступы */
+  }
+}
+
+.tabs {
+    display: flex;
+    gap: 5px; /* Уменьшаем вертикальные отступы между вкладками */
+}
+
+.tab-btn {
+    margin: 0; /* Убираем внешние отступы вокруг кнопок */
+    padding: 10px 20px; /* Устанавливаем внутренние отступы */
+}
+
+.tabs {
+    display: flex;
+    flex-direction: column; /* Столбец по умолчанию */
+    gap: 5px; /* Вертикальный отступ между вкладками */
+}
+
+@media (min-width: 768px) {
+    .tabs {
+        flex-direction: row; /* Горизонтальное расположение на экранах больше 768px */
+    }
+}
+
+.input-field {
+    width: 100%; /* Устанавливаем ширину на 100% */
+    padding: 8px; /* Внутренний отступ */
+    margin-bottom: 15px; /* Отступ между полями */
+    border: 1px solid #ccc; /* Полоса вокруг поля */
+    border-radius: 5px; /* Сглаженные углы */
+    font-size: 14px; /* Размер шрифта */
+}
+
+.left-section {
+    padding: 20px; /* Внешний отступ */
+    background-color: #f9f9f9; /* Цвет фона */
+    border-radius: 10px; /* Сглаженные углы */
+}
+
+.left-section input,
+.left-section select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box; /* Очень важно */
+    -moz-box-sizing: border-box; /* Для старых браузеров */
+}
+
+.left-section {
+    width: 100%;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    #saved-calculations {
+        display: flex;
+        flex-direction: column; /* Вертикальное расположение */
+        overflow-x: hidden; /* Убираем горизонтальную прокрутку */
+    }
+
+    .saved-calculation {
+        width: 100%; /* Каждый элемент занимает всю ширину экрана */
+        margin-bottom: 10px; /* Отступ между элементами */
+    }
+}
+
+@media (max-width: 768px) {
+    #saved-calculations {
+        font-size: 0.9rem; /* Уменьшаем размер текста */
+    }
+
+    .saved-calculation {
+        padding: 5px; /* Уменьшаем внутренние отступы */
+    }
+}
+
+/* Стили для блока с сохраненными расчетами */
+#saved-calculations {
+    overflow-x: auto; /* Горизонтальная прокрутка (если необходимо) */
+    white-space: normal; /* Разрешаем перенос строки */
+}
+
+/* Стили для каждого сохраненного расчета */
+.saved-calculation {
+    display: flex;
+    flex-direction: column; /* Вертикальное расположение элементов */
+    margin-bottom: 10px; /* Отступ между элементами */
+    word-wrap: break-word; /* Перенос слова, если не помещается */
+    overflow-wrap: break-word; /* Современный вариант переноса */
+    background-color: #f9f9f9; /* Цвет фона */
+    padding: 10px; /* Внутренний отступ */
+    border: 1px solid #ddd; /* Граница */
+    border-radius: 5px; /* Сглаженные углы */
+}
+
+/* Стили для текста внутри элементов */
+.saved-calculation span {
+    word-wrap: break-word; /* Перенос слова, если не помещается */
+    overflow-wrap: break-word; /* Современный вариант переноса */
+    margin-bottom: 5px; /* Отступ между строками */
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .saved-calculation {
+        font-size: 0.9rem; /* Уменьшаем размер текста */
+        padding: 5px; /* Уменьшаем внутренние отступы */
+    }
+
+    .saved-calculation span {
+        word-wrap: break-word; /* Перенос слова, если не помещается */
+        overflow-wrap: break-word; /* Современный вариант переноса */
+    }
+}
+/* Стили для блока с сохраненными расчетами */
+#saved-calculations {
+    display: flex; /* Вертикальное расположение по умолчанию */
+    flex-direction: column;
+    gap: 10px; /* Отступ между элементами */
+}
+
+/* Стили для каждого сохраненного расчета */
+.saved-calculation {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center; /* Центрирование текста */
+}
+
+/* Адаптивность для десктопных устройств */
+@media (min-width: 768px) {
+    #saved-calculations {
+        display: grid; /* Используем Grid */
+        grid-template-columns: repeat(4, 1fr); /* 4 равные колонки */
+        gap: 10px; /* Отступ между элементами */
+    }
+
+    .saved-calculation {
+        text-align: left; /* Выравнивание текста по левому краю */
+    }
+}
