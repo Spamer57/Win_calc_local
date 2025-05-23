@@ -1,4 +1,3 @@
-<script>
 // Цены на комплектующие
 const prices = {
   profiles: {
@@ -542,4 +541,3 @@ document.addEventListener('DOMContentLoaded', initializeCalculator);
 document.addEventListener('DOMContentLoaded', function () {
   selectTab('single'); // Активировать первую вкладку по умолчанию
 });
-</script>
